@@ -7,152 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap&subset=latin,latin-ext" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
 <style>
-  :root{
-    --paper:#EDEFF4;
-    --paper-deep:#E3E7F0;
-    --surface:#FAFBFD;
-    --surface-2:#F1F3F8;
-    --ink:#262A38;
-    --ink-2:#555B70;
-    --ink-3:#7E849A;
-    --line:#DBDFEA;
-    --line-soft:#E8EBF2;
-    --calm:#4F6D8F;
-    --calm-deep:#3C5572;
-    --sage:#5F8578;
-    --sage-tint:#E2EDE9;
-    --r-md:14px;
-    --r-lg:22px;
-    --shadow:0 1px 2px rgba(38,42,56,.04), 0 8px 24px -16px rgba(38,42,56,.22);
-    --serif:"Literata",Georgia,"Times New Roman",serif;
-    --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --paper:#171A23;
-      --paper-deep:#12141B;
-      --surface:#1F2330;
-      --surface-2:#262B3A;
-      --ink:#E7E9F0;
-      --ink-2:#A9AFC2;
-      --ink-3:#848AA0;
-      --line:#333949;
-      --line-soft:#2A2F3D;
-      --calm:#8FB2D4;
-      --calm-deep:#A8C5E2;
-      --sage:#8FBBAC;
-      --sage-tint:#223630;
-      --shadow:0 1px 2px rgba(0,0,0,.2), 0 8px 24px -16px rgba(0,0,0,.6);
-    }
-  }
-  *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
-  body{
-    margin:0;
-    font-family:var(--sans);
-    font-size:16px;
-    background:var(--paper);
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  .backdrop{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-    overflow:hidden;
-    background:
-      radial-gradient(820px 520px at 50% -8%, var(--surface) 0%, rgba(0,0,0,0) 72%),
-      radial-gradient(640px 440px at 92% 104%, var(--paper-deep) 0%, rgba(0,0,0,0) 70%);
-  }
-  .backdrop svg{
-    position:absolute;
-    top:-14vh;
-    left:50%;
-    transform:translateX(-50%);
-    width:min(1180px,160vw);
-    height:auto;
-    color:var(--calm);
-    opacity:.085;
-  }
-  @media (prefers-color-scheme: dark){ .backdrop svg{opacity:.13;} }
-
-  main{
-    position:relative;
-    z-index:1;
-    max-width:580px;
-    margin:0 auto;
-    padding:46px 20px 72px;
-  }
-  h1{
-    font-family:var(--serif);
-    font-size:31px;
-    line-height:1.2;
-    font-weight:600;
-    letter-spacing:-.015em;
-    margin:0 0 10px;
-  }
-  .lede{
-    font-size:16.5px;
-    color:var(--ink-2);
-    margin:0 0 32px;
-    max-width:46ch;
-  }
-  h2{
-    font-family:var(--serif);
-    font-size:19px;
-    font-weight:600;
-    margin:0 0 14px;
-  }
-  a.test{
-    display:block;
-    background:var(--surface);
-    border:1px solid var(--line-soft);
-    border-radius:var(--r-lg);
-    padding:22px 24px;
-    margin-bottom:14px;
-    color:inherit;
-    text-decoration:none;
-    box-shadow:var(--shadow);
-    transition:border-color .14s ease;
-  }
-  a.test:hover{border-color:var(--calm);}
-  a.test:focus-visible{outline:2px solid var(--calm);outline-offset:3px;}
-  .test-name{
-    font-family:var(--serif);
-    font-weight:600;
-    font-size:20px;
-    margin:0 0 5px;
-  }
-  .test-desc{
-    color:var(--ink-2);
-    font-size:15.5px;
-    margin:0 0 12px;
-  }
-  .test-meta{
-    display:flex;
-    gap:18px;
-    font-size:14px;
-    color:var(--ink-3);
-  }
-  .safe-note{
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
-    background:var(--sage-tint);
-    border-radius:var(--r-md);
-    padding:15px 17px;
-    font-size:15px;
-    color:var(--ink-2);
-    margin:30px 0 0;
-  }
-  .safe-note svg{flex:0 0 auto;margin-top:2px;color:var(--sage);}
-  @media (max-width:420px){
-    h1{font-size:26px;}
-    main{padding:34px 16px 60px;}
-  }
+  main{padding-top:46px;}
+  h1{font-size:31px;letter-spacing:-.015em;}
+  .lede{font-size:16.5px;margin-bottom:32px;}
+  h2{margin-top:0;}
+  .safe-note{margin:30px 0 0;}
+  @media (max-width:420px){ h1{font-size:26px;} main{padding-top:34px;} }
 </style>
 </head>
 <body>
@@ -171,23 +33,43 @@
 <main>
   <h1>Psytesty</h1>
   <p class="lede">Kwestionariusze do spokojnego przyjrzenia się sobie. Wypełniasz je w swoim tempie, a wyniki zostają na Twoim urządzeniu.</p>
-
   <h2>Dostępne testy</h2>
-
-  <!-- Nowy test: skopiuj blok <a class="test"> i zmień link, nazwę, opis oraz dane w .test-meta -->
-  <a class="test" href="testy/test-przywiazania.html">
-    <p class="test-name">Styl przywiązania</p>
-    <p class="test-desc">Jak układa się u Ciebie równowaga między potrzebą bliskości a potrzebą dystansu w związku.</p>
-    <div class="test-meta">
-      <span>36 stwierdzeń</span>
-      <span>około 7 minut</span>
-    </div>
-  </a>
-
+  <div id="list"><p class="empty">Wczytywanie listy testów…</p></div>
   <div class="safe-note">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 1.8 2.7 4.5v4.2c0 3.6 2.6 6.4 6.3 7.5 3.7-1.1 6.3-3.9 6.3-7.5V4.5Z"/><path d="m6.6 8.8 1.8 1.8 3.3-3.6"/></svg>
     <span>Odpowiedzi nie są nigdzie wysyłane — zostają wyłącznie w Twojej przeglądarce. Wyniki mają charakter orientacyjny i nie zastępują rozmowy ze specjalistą.</span>
   </div>
 </main>
+<script>
+// Lista testów pochodzi z testy/index.json — dodanie testu nie wymaga zmian w kodzie.
+(function(){
+  var box = document.getElementById('list');
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  fetch('testy/index.json', {cache:'no-cache'})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(data){
+      var tests = (data && data.tests) || [];
+      if(!tests.length){ box.innerHTML = '<p class="empty">Nie dodano jeszcze żadnego testu.</p>'; return; }
+      box.innerHTML = tests.map(function(t){
+        var meta = [];
+        if(t.items) meta.push(t.items + ' stwierdzeń');
+        if(t.minutes) meta.push('około ' + t.minutes + ' minut');
+        return '<a class="test" href="test.html?id=' + encodeURIComponent(t.id) + '">' +
+          '<p class="test-name">' + esc(t.title) + '</p>' +
+          (t.short ? '<p class="test-desc">' + esc(t.short) + '</p>' : '') +
+          '<div class="test-meta">' + meta.map(function(m){ return '<span>'+esc(m)+'</span>'; }).join('') + '</div>' +
+        '</a>';
+      }).join('');
+    })
+    .catch(function(){
+      box.innerHTML = '<div class="banner">Nie udało się wczytać listy testów.' +
+        (location.protocol === 'file:'
+          ? ' Strona została otwarta bezpośrednio z dysku (adres file://), a przeglądarki blokują w tym trybie wczytywanie plików JSON. Otwórz ją przez adres https.'
+          : '') + '</div>';
+    });
+})();
+</script>
 </body>
 </html>

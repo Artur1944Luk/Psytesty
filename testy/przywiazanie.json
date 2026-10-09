@@ -1,0 +1,261 @@
+{
+  "id": "przywiazanie",
+  "title": "Styl przywiązania",
+  "short": "Jak układa się u Ciebie równowaga między potrzebą bliskości a potrzebą dystansu w związku.",
+  "intro": "Trzydzieści sześć stwierdzeń o bliskości i dystansie w związku. Wynik opisuje dwa niezależne wymiary: na ile obawiasz się odrzucenia i na ile trzymasz dystans emocjonalny.",
+  "minutes": 7,
+  "source": "Wersja autorska, inspirowana dwuwymiarowym modelem lęku i unikania stosowanym m.in. w ECR-R.",
+  "prompt": "Na ile to zdanie pasuje do Ciebie?",
+  "scale": {
+    "min": 1,
+    "max": 7,
+    "labels": [
+      "zdecydowanie się nie zgadzam",
+      "nie zgadzam się",
+      "raczej się nie zgadzam",
+      "ani tak, ani nie",
+      "raczej się zgadzam",
+      "zgadzam się",
+      "zdecydowanie się zgadzam"
+    ]
+  },
+  "dimensions": [
+    {
+      "key": "anx",
+      "name": "Lęk przed odrzuceniem",
+      "note": "Jak bardzo zajmuje Cię myśl o tym, że bliska osoba może odejść.",
+      "color": "heather",
+      "short": "lęk przed odrzuceniem"
+    },
+    {
+      "key": "avo",
+      "name": "Unikanie bliskości",
+      "note": "Jak bardzo wolisz trzymać uczucia dla siebie i polegać tylko na sobie.",
+      "color": "sage",
+      "short": "unikanie bliskości"
+    }
+  ],
+  "scoring": {
+    "type": "quadrant",
+    "x": "avo",
+    "y": "anx",
+    "threshold": 50,
+    "results": [
+      {
+        "when": {
+          "anx": "low",
+          "avo": "low"
+        },
+        "name": "Bezpieczny",
+        "desc": "Czujesz się względnie swobodnie zarówno z bliskością, jak i z niezależnością. Ufasz partnerowi i nie masz silnej obawy przed odrzuceniem ani potrzeby trzymania dystansu."
+      },
+      {
+        "when": {
+          "anx": "high",
+          "avo": "low"
+        },
+        "name": "Lękowo-ambiwalentny",
+        "desc": "Zależy Ci na bliskości i często potrzebujesz zapewnień o uczuciach partnera. Możesz odczuwać niepokój związany z obawą przed odrzuceniem lub utratą związku."
+      },
+      {
+        "when": {
+          "anx": "low",
+          "avo": "high"
+        },
+        "name": "Unikająco-lekceważący",
+        "desc": "Cenisz niezależność i możesz czuć dyskomfort przy dużej bliskości emocjonalnej. Wolisz polegać na sobie niż szukać wsparcia u innych."
+      },
+      {
+        "when": {
+          "anx": "high",
+          "avo": "high"
+        },
+        "name": "Lękowo-unikający",
+        "desc": "Z jednej strony pragniesz bliskości, z drugiej obawiasz się jej i trzymasz dystans. To połączenie niepokoju o relację i trudności z otwarciem się na partnera."
+      }
+    ]
+  },
+  "closing": "Styl przywiązania nie jest diagnozą ani cechą na całe życie — zmienia się wraz z doświadczeniem i relacjami.",
+  "items": [
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Martwię się, że partner nie kocha mnie tak bardzo, jak ja jego/ją."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Wolę nie dzielić się głębszymi uczuciami z partnerem."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Często zastanawiam się, czy partner naprawdę chce ze mną być."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Czuję się nieswojo, gdy partner chce być bardzo blisko mnie emocjonalnie."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Boję się, że zostanę odrzucony/a lub porzucony/a przez bliską osobę."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Trudno mi pozwolić sobie na zależność od bliskiej osoby."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Potrzebuję częstych zapewnień, że jestem kochany/a."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Wolę radzić sobie z problemami sam/sama niż szukać wsparcia u partnera."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Czuję niepokój, gdy partner spędza czas z dala ode mnie."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Zachowuję dystans, gdy związek staje się zbyt intymny."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Łatwo wpadam w niepokój, gdy myślę, że nasz związek może się skończyć."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Rzadko otwieram się przed partnerem na temat swoich obaw."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Zbytnio przejmuję się tym, co partner o mnie myśli."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Czuję się skrępowany/a, gdy partner okazuje mi zbyt dużo czułości."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Czuję się niespokojny/a, gdy nie mam kontaktu z partnerem przez dłuższy czas."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Wolę, żeby związek nie wymagał zbyt dużej bliskości emocjonalnej."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Boję się, że partner straci zainteresowanie mną."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Trudno mi mówić partnerowi o swoich prawdziwych uczuciach."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Często potrzebuję potwierdzenia, że nasz związek ma się dobrze."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Unikam rozmów o przyszłości związku."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Martwię się, że nie jestem wystarczająco dobry/a dla partnera."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Czuję ulgę, gdy mam czas z dala od partnera."
+    },
+    {
+      "d": "anx",
+      "r": false,
+      "q": "Kiedy partner jest w złym humorze, zastanawiam się, czy to przeze mnie."
+    },
+    {
+      "d": "avo",
+      "r": false,
+      "q": "Wolę zachować część swojego życia tylko dla siebie, nawet przed partnerem."
+    },
+    {
+      "d": "anx",
+      "r": true,
+      "q": "Czuję się bezpiecznie w związku i rzadko się o niego martwię."
+    },
+    {
+      "d": "avo",
+      "r": true,
+      "q": "Czuję się swobodnie, dzieląc się z partnerem swoimi myślami i uczuciami."
+    },
+    {
+      "d": "anx",
+      "r": true,
+      "q": "Rzadko obawiam się, że partner mnie zostawi."
+    },
+    {
+      "d": "avo",
+      "r": true,
+      "q": "Łatwo mi prosić partnera o wsparcie, gdy tego potrzebuję."
+    },
+    {
+      "d": "anx",
+      "r": true,
+      "q": "Łatwo mi zaufać, że partner mnie kocha."
+    },
+    {
+      "d": "avo",
+      "r": true,
+      "q": "Cieszy mnie bliskość emocjonalna z partnerem."
+    },
+    {
+      "d": "anx",
+      "r": true,
+      "q": "Kiedy nie mogę skontaktować się z partnerem, zakładam po prostu, że ma zajęty dzień."
+    },
+    {
+      "d": "avo",
+      "r": true,
+      "q": "Bez trudu pozwalam sobie na zależność od bliskiej osoby."
+    },
+    {
+      "d": "anx",
+      "r": true,
+      "q": "Nie potrzebuję ciągłych zapewnień, by czuć się pewnie w związku."
+    },
+    {
+      "d": "avo",
+      "r": true,
+      "q": "Rozmowa o uczuciach z partnerem przychodzi mi naturalnie."
+    },
+    {
+      "d": "anx",
+      "r": true,
+      "q": "Zwykle nie martwię się tym, co partner o mnie myśli."
+    },
+    {
+      "d": "avo",
+      "r": true,
+      "q": "Czuję się komfortowo, gdy partner jest bardzo blisko mnie emocjonalnie."
+    }
+  ]
+}
