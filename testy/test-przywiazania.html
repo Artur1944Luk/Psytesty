@@ -4,247 +4,479 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Test stylu przywiązania</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap&subset=latin,latin-ext" rel="stylesheet">
 <style>
   :root{
-    --bg:#FAF8F4;
-    --surface:#FFFFFF;
-    --surface-2:#F1EEE6;
-    --text:#26241F;
-    --text-secondary:#6B6759;
-    --text-muted:#9A9585;
-    --border:#E3DFD2;
-    --accent:#0F6E56;
-    --accent-100:#E1F5EE;
-    --accent-800:#085041;
-    --warm:#B5511E;
-    --warm-100:#FAECE7;
-    --warm-800:#4A1B0C;
-    --radius:10px;
+    --paper:#EDEFF4;
+    --paper-deep:#E3E7F0;
+    --surface:#FAFBFD;
+    --surface-2:#F1F3F8;
+    --ink:#262A38;
+    --ink-2:#555B70;
+    --ink-3:#7E849A;
+    --line:#DBDFEA;
+    --line-soft:#E8EBF2;
+    --calm:#4F6D8F;
+    --calm-deep:#3C5572;
+    --calm-tint:#E2EAF3;
+    --sage:#5F8578;
+    --sage-tint:#E2EDE9;
+    --heather:#8E6B88;
+    --heather-tint:#EFE6EE;
+    --r-sm:8px;
+    --r-md:14px;
+    --r-lg:22px;
+    --shadow:0 1px 2px rgba(38,42,56,.04), 0 8px 24px -16px rgba(38,42,56,.22);
+    --serif:"Literata",Georgia,"Times New Roman",serif;
+    --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   @media (prefers-color-scheme: dark){
     :root{
-      --bg:#1B1A17;
-      --surface:#242320;
-      --surface-2:#2D2B27;
-      --text:#EDEAE1;
-      --text-secondary:#B0AB9C;
-      --text-muted:#7C7869;
-      --border:#3A3833;
-      --accent:#5DCAA5;
-      --accent-100:#0F6E56;
-      --accent-800:#E1F5EE;
-      --warm:#F0997B;
-      --warm-100:#712B13;
-      --warm-800:#FAECE7;
+      --paper:#171A23;
+      --paper-deep:#12141B;
+      --surface:#1F2330;
+      --surface-2:#262B3A;
+      --ink:#E7E9F0;
+      --ink-2:#A9AFC2;
+      --ink-3:#848AA0;
+      --line:#333949;
+      --line-soft:#2A2F3D;
+      --calm:#8FB2D4;
+      --calm-deep:#A8C5E2;
+      --calm-tint:#26354A;
+      --sage:#8FBBAC;
+      --sage-tint:#223630;
+      --heather:#C2A0BB;
+      --heather-tint:#382936;
+      --shadow:0 1px 2px rgba(0,0,0,.2), 0 8px 24px -16px rgba(0,0,0,.6);
     }
   }
   *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
   body{
     margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.55;
+    font-family:var(--sans);
+    font-size:16px;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
   }
+
+  /* Tło: koncentryczne łuki — motyw kręgów na wodzie, bardzo niskie krycie */
+  .backdrop{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    overflow:hidden;
+    background:
+      radial-gradient(820px 520px at 50% -8%, var(--surface) 0%, rgba(0,0,0,0) 72%),
+      radial-gradient(640px 440px at 92% 104%, var(--paper-deep) 0%, rgba(0,0,0,0) 70%);
+  }
+  .backdrop svg{
+    position:absolute;
+    top:-14vh;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1180px,160vw);
+    height:auto;
+    color:var(--calm);
+    opacity:.085;
+  }
+  @media (prefers-color-scheme: dark){ .backdrop svg{opacity:.13;} }
+
   #app{
-    max-width:640px;
+    position:relative;
+    z-index:1;
+    max-width:580px;
     margin:0 auto;
-    padding:28px 20px 60px;
+    padding:34px 20px 72px;
   }
+
   h1{
-    font-size:20px;
+    font-family:var(--serif);
+    font-size:27px;
+    line-height:1.25;
     font-weight:600;
-    margin:0 0 4px;
+    letter-spacing:-.01em;
+    margin:0 0 10px;
   }
-  .subtitle{
-    color:var(--text-secondary);
+  h2{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:600;
+    margin:36px 0 12px;
+  }
+  .lede{
+    font-size:16px;
+    color:var(--ink-2);
+    margin:0 0 26px;
+    max-width:46ch;
+  }
+
+  .backlink{
+    display:inline-block;
     font-size:14px;
-    margin:0 0 24px;
+    color:var(--ink-3);
+    text-decoration:none;
+    margin-bottom:22px;
+    border-bottom:1px solid transparent;
   }
+  .backlink:hover{color:var(--calm);border-bottom-color:var(--line);}
+
   .card{
     background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:18px 18px;
-    margin-bottom:14px;
+    border:1px solid var(--line-soft);
+    border-radius:var(--r-lg);
+    padding:24px;
+    box-shadow:var(--shadow);
   }
+
   button{
     font-family:inherit;
-    font-size:14px;
-    border-radius:var(--radius);
-    border:1px solid var(--border);
+    font-size:16px;
+    border-radius:var(--r-md);
+    border:1px solid var(--line);
     background:var(--surface);
-    color:var(--text);
-    padding:10px 14px;
+    color:var(--ink);
+    padding:12px 18px;
     cursor:pointer;
+    transition:background .14s ease, border-color .14s ease;
   }
   button:hover{background:var(--surface-2);}
-  button:active{transform:scale(0.98);}
-  button:disabled{opacity:0.4;cursor:default;}
+  button:disabled{opacity:.38;cursor:default;}
+  button:focus-visible, a:focus-visible{
+    outline:2px solid var(--calm);
+    outline-offset:3px;
+  }
   .btn-primary{
-    background:var(--accent);
+    background:var(--calm);
     color:#fff;
-    border:1px solid var(--accent);
-    font-weight:600;
+    border-color:var(--calm);
+    font-weight:500;
+    padding:15px 22px;
   }
-  .btn-primary:hover{filter:brightness(1.05);}
+  .btn-primary:hover{background:var(--calm-deep);border-color:var(--calm-deep);}
+  @media (prefers-color-scheme: dark){
+    .btn-primary{color:#141822;}
+  }
   .btn-block{width:100%;}
-  .progress-track{
-    height:5px;
-    background:var(--surface-2);
-    border-radius:3px;
-    overflow:hidden;
-    margin-bottom:18px;
+  .btn-quiet{
+    border-color:transparent;
+    background:none;
+    color:var(--ink-3);
+    padding:12px 4px;
   }
+  .btn-quiet:hover{background:none;color:var(--ink);}
+
+  /* --- Przebieg testu --- */
+  .progress-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:9px;
+  }
+  .progress-count{
+    font-size:16px;
+    color:var(--ink-2);
+  }
+  .progress-count b{
+    font-weight:600;
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .progress-pct{
+    font-size:14px;
+    color:var(--ink-3);
+    font-variant-numeric:tabular-nums;
+  }
+  .progress-track{
+    height:6px;
+    background:var(--paper-deep);
+    border-radius:99px;
+    overflow:hidden;
+    margin-bottom:30px;
+  }
+  @media (prefers-color-scheme: dark){ .progress-track{background:var(--surface-2);} }
   .progress-fill{
     height:100%;
-    background:var(--accent);
-    border-radius:3px;
-    transition:width .2s ease;
+    background:var(--calm);
+    border-radius:99px;
+    transition:width .28s cubic-bezier(.4,0,.2,1);
   }
-  .q-meta{
-    font-size:12px;
-    color:var(--text-muted);
-    margin:0 0 6px;
+
+  .statement{
+    font-family:var(--serif);
+    font-size:22px;
+    line-height:1.45;
+    font-weight:400;
+    margin:0 0 8px;
+    letter-spacing:-.005em;
   }
-  .q-text{
-    font-size:17px;
-    margin:0 0 18px;
-  }
-  .scale-row{
-    display:grid;
-    grid-template-columns:repeat(7,1fr);
-    gap:6px;
-    margin-bottom:6px;
-  }
-  .scale-btn{
-    padding:10px 0;
-    font-weight:600;
+  .statement-hint{
     font-size:14px;
-    text-align:center;
+    color:var(--ink-3);
+    margin:0 0 22px;
   }
-  .scale-btn.selected{
-    background:var(--accent);
-    border-color:var(--accent);
+
+  /* Skala: siedem pełnowymiarowych wierszy zamiast małych kwadratów */
+  .scale{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:26px;
+  }
+  .opt{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    width:100%;
+    min-height:54px;
+    padding:10px 16px;
+    text-align:left;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--r-md);
+    font-size:16.5px;
+    line-height:1.35;
+    color:var(--ink);
+  }
+  .opt:hover{border-color:var(--calm);background:var(--surface);}
+  .opt-num{
+    flex:0 0 auto;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    color:var(--ink-2);
+    font-size:15px;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+  }
+  .opt.selected{
+    background:var(--calm-tint);
+    border-color:var(--calm);
+    font-weight:500;
+  }
+  .opt.selected .opt-num{
+    background:var(--calm);
+    border-color:var(--calm);
     color:#fff;
   }
-  .scale-labels{
-    display:flex;
-    justify-content:space-between;
-    font-size:11px;
-    color:var(--text-muted);
-    margin-bottom:20px;
+  @media (prefers-color-scheme: dark){
+    .opt.selected .opt-num{color:#141822;}
   }
+
   .nav-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:12px;
   }
-  .badge{
-    display:inline-block;
-    font-size:12px;
-    font-weight:600;
-    padding:3px 10px;
-    border-radius:20px;
-    background:var(--accent-100);
-    color:var(--accent-800);
+
+  /* --- Wynik --- */
+  .result-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:18px;
+  }
+  .tag{
+    font-size:13.5px;
+    font-weight:500;
+    padding:4px 12px;
+    border-radius:99px;
+    background:var(--calm-tint);
+    color:var(--calm-deep);
   }
   .result-id{
-    font-size:12px;
-    color:var(--text-muted);
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:13px;
+    color:var(--ink-3);
+    font-variant-numeric:tabular-nums;
   }
+  .style-name{
+    font-family:var(--serif);
+    font-size:28px;
+    line-height:1.2;
+    font-weight:600;
+    margin:0 0 10px;
+    letter-spacing:-.015em;
+  }
+  .style-desc{
+    font-size:16.5px;
+    color:var(--ink-2);
+    margin:0;
+    max-width:48ch;
+  }
+
+  .map{
+    display:block;
+    width:100%;
+    max-width:320px;
+    height:auto;
+    margin:26px auto 4px;
+  }
+  .map-caption{
+    font-size:13.5px;
+    color:var(--ink-3);
+    text-align:center;
+    margin:0 0 4px;
+  }
+
+  .metric{margin-top:20px;}
   .metric-label{
     display:flex;
     justify-content:space-between;
-    font-size:13px;
-    color:var(--text-secondary);
-    margin-bottom:4px;
+    align-items:baseline;
+    gap:10px;
+    font-size:15.5px;
+    margin-bottom:7px;
+  }
+  .metric-label span:last-child{
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
   }
   .metric-track{
-    height:9px;
+    height:10px;
     background:var(--surface-2);
-    border-radius:5px;
+    border-radius:99px;
     overflow:hidden;
-    margin-bottom:16px;
   }
-  .metric-fill{
-    height:100%;
-    border-radius:5px;
+  .metric-fill{height:100%;border-radius:99px;}
+  .metric-note{
+    font-size:14px;
+    color:var(--ink-3);
+    margin:7px 0 0;
   }
-  .style-name{
-    font-size:22px;
-    font-weight:600;
-    margin:0 0 4px;
+
+  .divider{
+    height:1px;
+    background:var(--line-soft);
+    border:0;
+    margin:22px 0;
   }
-  .style-desc{
-    font-size:15px;
-    color:var(--text-secondary);
-    margin:0 0 4px;
-  }
+
+  /* --- Historia --- */
   .hist-item{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:12px 4px;
-    border-bottom:1px solid var(--border);
+    gap:14px;
+    width:100%;
+    padding:15px 4px;
+    border:0;
+    border-bottom:1px solid var(--line-soft);
+    border-radius:0;
+    background:none;
+    text-align:left;
     cursor:pointer;
   }
   .hist-item:last-child{border-bottom:none;}
-  .hist-date{
-    font-size:13px;
-    color:var(--text-secondary);
-  }
-  .hist-style{
-    font-size:14px;
-    font-weight:600;
-  }
+  .hist-item:hover{background:none;}
+  .hist-item:hover .hist-style{color:var(--calm);}
+  .hist-style{font-size:16.5px;font-weight:500;}
+  .hist-date{font-size:14px;color:var(--ink-3);font-variant-numeric:tabular-nums;}
+  .hist-chevron{color:var(--ink-3);flex:0 0 auto;}
   .empty{
-    color:var(--text-muted);
-    font-size:14px;
+    color:var(--ink-3);
+    font-size:15.5px;
     text-align:center;
-    padding:20px 0;
+    padding:26px 10px;
+    margin:0;
   }
+
   .answer-row{
     display:flex;
     justify-content:space-between;
-    gap:12px;
-    padding:8px 0;
-    border-bottom:1px solid var(--border);
-    font-size:13px;
+    gap:16px;
+    padding:11px 0;
+    border-bottom:1px solid var(--line-soft);
+    font-size:15px;
   }
   .answer-row:last-child{border-bottom:none;}
-  .answer-q{color:var(--text-secondary);}
-  .answer-v{font-weight:600;white-space:nowrap;}
+  .answer-q{color:var(--ink-2);}
+  .answer-v{
+    font-weight:600;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+
   .link-btn{
     background:none;
-    border:none;
-    color:var(--accent);
+    border:0;
+    color:var(--calm);
     padding:0;
-    font-weight:600;
+    font-size:15.5px;
+    font-weight:500;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    text-decoration-color:var(--line);
   }
-  .top-nav{
-    display:flex;
-    gap:8px;
+  .link-btn:hover{background:none;text-decoration-color:var(--calm);}
+
+  .note{
+    font-size:14px;
+    color:var(--ink-3);
+    margin-top:20px;
+    max-width:52ch;
+  }
+
+  .banner{
+    background:var(--heather-tint);
+    color:var(--ink);
+    border:1px solid var(--heather);
+    border-radius:var(--r-md);
+    padding:14px 16px;
+    font-size:15px;
     margin-bottom:18px;
   }
-  .note{
-    font-size:12px;
-    color:var(--text-muted);
-    margin-top:18px;
+
+  .safe-note{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:var(--sage-tint);
+    border-radius:var(--r-md);
+    padding:14px 16px;
+    font-size:15px;
+    color:var(--ink-2);
+    margin:0 0 24px;
   }
-  .error-banner{
-    background:var(--warm-100);
-    color:var(--warm-800);
-    border:1px solid var(--warm);
-    border-radius:var(--radius);
-    padding:12px 14px;
-    font-size:13px;
-    margin-bottom:14px;
+  .safe-note svg{flex:0 0 auto;margin-top:2px;color:var(--sage);}
+
+  @media (max-width:420px){
+    h1{font-size:24px;}
+    .statement{font-size:20px;}
+    .opt{font-size:16px;gap:12px;padding:10px 13px;}
+    #app{padding:26px 16px 60px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
   }
 </style>
 </head>
 <body>
+<div class="backdrop" aria-hidden="true">
+  <svg viewBox="0 0 1180 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="currentColor" stroke-width="1.15">
+      <circle cx="590" cy="300" r="118"/>
+      <circle cx="590" cy="300" r="196"/>
+      <circle cx="590" cy="300" r="282"/>
+      <circle cx="590" cy="300" r="376"/>
+      <circle cx="590" cy="300" r="478"/>
+      <circle cx="590" cy="300" r="588"/>
+    </g>
+  </svg>
+</div>
 <div id="app"></div>
 <script>
 // 36-pozycyjny kwestionariusz stylu przywiązania (wersja autorska,
@@ -287,10 +519,29 @@ const ITEMS = [
   {t:'anx', r:true,  q:'Zwykle nie martwię się tym, co partner o mnie myśli.'},
   {t:'avo', r:true,  q:'Czuję się komfortowo, gdy partner jest bardzo blisko mnie emocjonalnie.'}
 ];
-const SCALE_MIN_LABEL = 'zdecydowanie się nie zgadzam';
-const SCALE_MAX_LABEL = 'zdecydowanie się zgadzam';
 
-let state = { view:'home', qIdx:0, answers:new Array(ITEMS.length).fill(null), history:[], viewingId:null, viewingFull:null };
+// Pełna, nazwana skala — każdy stopień ma czytelny opis, nie tylko cyfrę.
+const SCALE = [
+  {v:1, label:'zdecydowanie się nie zgadzam'},
+  {v:2, label:'nie zgadzam się'},
+  {v:3, label:'raczej się nie zgadzam'},
+  {v:4, label:'ani tak, ani nie'},
+  {v:5, label:'raczej się zgadzam'},
+  {v:6, label:'zgadzam się'},
+  {v:7, label:'zdecydowanie się zgadzam'}
+];
+function scaleLabel(v){
+  for(var i=0;i<SCALE.length;i++){ if(SCALE[i].v===v) return SCALE[i].label; }
+  return '';
+}
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+let state = { view:'home', qIdx:0, answers:new Array(ITEMS.length).fill(null), history:[], viewingFull:null };
 
 const app = document.getElementById('app');
 
@@ -372,7 +623,7 @@ async function saveTest(answers, result){
   const full = Object.assign({ id: id, date: date, answers: answers }, result);
   let saveError = null;
   if(!storageAvailable()){
-    saveError = 'Zapis niedostępny: przeglądarka blokuje pamięć lokalną (np. tryb prywatny). Wynik jest widoczny poniżej, ale nie trafi do historii.';
+    saveError = 'Zapis historii jest wyłączony w tej przeglądarce, więc ten wynik nie zostanie zapamiętany. Możesz go teraz przeczytać lub zapisać samodzielnie.';
   } else {
     try{
       await store.set('ecrr_full_'+id, JSON.stringify(full));
@@ -380,7 +631,7 @@ async function saveTest(answers, result){
       idx.unshift({ id: id, date: date, anxPct: result.anxPct, avoPct: result.avoPct, style: result.style });
       await store.set('ecrr_index', JSON.stringify(idx));
     }catch(e){
-      saveError = 'Zapis nie powiódł się (' + (e && e.message ? e.message : 'nieznany błąd') + '). Wynik jest widoczny poniżej, ale nie trafi do historii.';
+      saveError = 'Nie udało się zapisać wyniku w pamięci przeglądarki (' + (e && e.message ? e.message : 'nieznany powód') + '). Wynik jest widoczny poniżej, ale nie trafi do historii.';
     }
   }
   return { full: full, saveError: saveError };
@@ -395,7 +646,7 @@ async function loadFull(id){
 
 function formatDate(iso){
   const d = new Date(iso);
-  return d.toLocaleDateString('pl-PL', {day:'2-digit', month:'2-digit', year:'numeric'}) + ' ' + d.toLocaleTimeString('pl-PL', {hour:'2-digit', minute:'2-digit'});
+  return d.toLocaleDateString('pl-PL', {day:'2-digit', month:'2-digit', year:'numeric'}) + ', ' + d.toLocaleTimeString('pl-PL', {hour:'2-digit', minute:'2-digit'});
 }
 
 function render(){
@@ -403,31 +654,39 @@ function render(){
   else if(state.view==='quiz') renderQuiz();
   else if(state.view==='result') renderResult(state.lastResult, state.lastAnswers, state.lastId, false);
   else if(state.view==='detail') renderResult(state.viewingFull, state.viewingFull.answers, state.viewingFull.id, true);
+  window.scrollTo(0,0);
 }
 
 async function renderHome(){
   const idx = await loadIndex();
   state.history = idx;
   app.innerHTML = `
-    <p style="margin:0 0 14px;"><a href="../index.html" style="color:var(--accent);font-size:13px;text-decoration:none;">← Wszystkie testy</a></p>
+    <a class="backlink" href="../index.html">Wszystkie testy</a>
     <h1>Test stylu przywiązania</h1>
-    <p class="subtitle">36 stwierdzeń · dwa wymiary: lęk przed odrzuceniem i unikanie bliskości</p>
-    <button class="btn-primary btn-block" id="start">Zacznij nowy test</button>
-    <h2 style="font-size:15px;font-weight:600;margin:28px 0 10px;">Historia testów</h2>
-    ${!storageAvailable() ? '<div class="error-banner">Zapis historii jest niedostępny w tej przeglądarce (np. tryb prywatny lub zablokowana pamięć lokalna). Test działa, ale wyniki nie będą zapamiętane.</div>' : ''}
-    <div class="card" style="padding:4px 14px;">
-      ${idx.length===0 ? '<div class="empty">Nie masz jeszcze zapisanych wyników.</div>' :
+    <p class="lede">Trzydzieści sześć stwierdzeń o bliskości i dystansie w związku. Wynik opisuje dwa niezależne wymiary: na ile obawiasz się odrzucenia i na ile trzymasz dystans emocjonalny.</p>
+
+    <div class="safe-note">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 1.8 2.7 4.5v4.2c0 3.6 2.6 6.4 6.3 7.5 3.7-1.1 6.3-3.9 6.3-7.5V4.5Z"/><path d="m6.6 8.8 1.8 1.8 3.3-3.6"/></svg>
+      <span>Nie ma tu dobrych ani złych odpowiedzi. Odpowiadaj tak, jak jest naprawdę, a nie tak, jak uważasz, że powinno być. Możesz przerwać w dowolnym momencie.</span>
+    </div>
+
+    <button class="btn-primary btn-block" id="start">Zacznij test</button>
+
+    <h2>Twoje wcześniejsze wyniki</h2>
+    ${!storageAvailable() ? '<div class="banner">Ta przeglądarka ma wyłączoną pamięć lokalną (np. tryb prywatny), więc wyniki nie będą zapamiętywane. Sam test działa normalnie.</div>' : ''}
+    <div class="card" style="padding:4px 20px;">
+      ${idx.length===0 ? '<p class="empty">Pierwszy wynik pojawi się tutaj zaraz po ukończeniu testu.</p>' :
         idx.map(t=>`
-          <div class="hist-item" data-id="${t.id}">
-            <div>
-              <div class="hist-style">${t.style}</div>
-              <div class="hist-date">${formatDate(t.date)} · <span class="result-id">${t.id}</span></div>
-            </div>
-            <span style="color:var(--text-muted);font-size:18px;">›</span>
-          </div>
+          <button class="hist-item" data-id="${esc(t.id)}">
+            <span>
+              <span class="hist-style">${esc(t.style)}</span><br>
+              <span class="hist-date">${formatDate(t.date)}</span>
+            </span>
+            <svg class="hist-chevron" width="9" height="15" viewBox="0 0 9 15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1.5 1.5 6 6-6 6"/></svg>
+          </button>
         `).join('')}
     </div>
-    <p class="note">Wyniki zapisywane są tylko na tym urządzeniu / w tej przeglądarce.</p>
+    <p class="note">Odpowiedzi i wyniki zostają wyłącznie na tym urządzeniu, w tej przeglądarce. Nic nie jest nigdzie wysyłane. Wynik ma charakter orientacyjny i nie zastępuje rozmowy ze specjalistą.</p>
   `;
   document.getElementById('start').addEventListener('click', ()=>{
     state.view='quiz'; state.qIdx=0; state.answers=new Array(ITEMS.length).fill(null);
@@ -441,72 +700,142 @@ async function renderHome(){
   });
 }
 
+async function answerQuestion(i, value){
+  state.answers[i] = value;
+  if(i+1 < ITEMS.length){
+    state.qIdx++;
+    render();
+  } else {
+    const result = computeResult(state.answers);
+    const { full, saveError } = await saveTest(state.answers.slice(), result);
+    state.lastResult = result;
+    state.lastAnswers = state.answers.slice();
+    state.lastId = full.id;
+    state.lastDate = full.date;
+    state.lastSaveError = saveError;
+    state.view='result';
+    render();
+  }
+}
+
 function renderQuiz(){
   const i = state.qIdx;
   const it = ITEMS[i];
   const pct = Math.round((i/ITEMS.length)*100);
   const current = state.answers[i];
   app.innerHTML = `
-    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-    <p class="q-meta">Pytanie ${i+1} z ${ITEMS.length}</p>
-    <p class="q-text">${it.q}</p>
-    <div class="scale-row">
-      ${[1,2,3,4,5,6,7].map(v=>`<button class="scale-btn ${current===v?'selected':''}" data-v="${v}">${v}</button>`).join('')}
+    <div class="progress-head">
+      <span class="progress-count">Pytanie <b>${i+1}</b> z <b>${ITEMS.length}</b></span>
+      <span class="progress-pct">${pct}% ukończone</span>
     </div>
-    <div class="scale-labels"><span>${SCALE_MIN_LABEL}</span><span>${SCALE_MAX_LABEL}</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+
+    <p class="statement">${esc(it.q)}</p>
+    <p class="statement-hint">Na ile to zdanie pasuje do Ciebie?</p>
+
+    <div class="scale">
+      ${SCALE.map(s=>`
+        <button class="opt ${current===s.v?'selected':''}" data-v="${s.v}">
+          <span class="opt-num">${s.v}</span>
+          <span>${s.label}</span>
+        </button>
+      `).join('')}
+    </div>
+
     <div class="nav-row">
-      <button id="back" ${i===0?'disabled':''}>← Wstecz</button>
-      <button id="home2" style="border:none;background:none;color:var(--text-muted);">Przerwij</button>
+      <button id="back" ${i===0?'disabled':''}>Wstecz</button>
+      <button class="btn-quiet" id="home2">Przerwij test</button>
     </div>
   `;
-  app.querySelectorAll('.scale-btn').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      state.answers[i] = parseInt(btn.getAttribute('data-v'));
-      if(i+1 < ITEMS.length){
-        state.qIdx++;
-        render();
-      } else {
-        const result = computeResult(state.answers);
-        const { full, saveError } = await saveTest(state.answers.slice(), result);
-        state.lastResult = result;
-        state.lastAnswers = state.answers.slice();
-        state.lastId = full.id;
-        state.lastDate = full.date;
-        state.lastSaveError = saveError;
-        state.view='result';
-        render();
-      }
-    });
+  app.querySelectorAll('.opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ answerQuestion(i, parseInt(btn.getAttribute('data-v'),10)); });
   });
   document.getElementById('back').addEventListener('click', ()=>{ if(i>0){ state.qIdx--; render(); } });
   document.getElementById('home2').addEventListener('click', ()=>{ state.view='home'; render(); });
 }
 
+// Skrót klawiaturowy: klawisze 1-7 wybierają odpowiedź.
+document.addEventListener('keydown', function(e){
+  if(state.view!=='quiz') return;
+  if(e.ctrlKey || e.altKey || e.metaKey) return;
+  const n = parseInt(e.key,10);
+  if(n>=1 && n<=7){
+    e.preventDefault();
+    answerQuestion(state.qIdx, n);
+  }
+});
+
+function quadrantMap(anxPct, avoPct){
+  // Oś pozioma: unikanie bliskości. Oś pionowa: lęk przed odrzuceniem (rośnie ku górze).
+  // Pole wykresu: x 38..266, y 16..244. Nazwy ćwiartek leżą wewnątrz pól.
+  const x = 38 + (avoPct/100)*228;
+  const y = 244 - (anxPct/100)*228;
+  return `
+    <svg class="map" viewBox="0 0 280 276" role="img" aria-label="Twoja pozycja na mapie: lęk przed odrzuceniem ${anxPct} procent, unikanie bliskości ${avoPct} procent">
+      <rect x="38" y="16" width="114" height="114" fill="var(--heather-tint)"/>
+      <rect x="152" y="16" width="114" height="114" fill="var(--surface-2)"/>
+      <rect x="38" y="130" width="114" height="114" fill="var(--sage-tint)"/>
+      <rect x="152" y="130" width="114" height="114" fill="var(--surface-2)"/>
+      <g stroke="var(--line)" stroke-width="1">
+        <rect x="38" y="16" width="228" height="228" fill="none"/>
+        <line x1="152" y1="16" x2="152" y2="244"/>
+        <line x1="38" y1="130" x2="266" y2="130"/>
+      </g>
+      <g fill="var(--ink-3)" font-size="11" font-family="var(--sans)" text-anchor="middle">
+        <text x="95" y="66">lękowo-</text>
+        <text x="95" y="80">ambiwalentny</text>
+        <text x="209" y="66">lękowo-</text>
+        <text x="209" y="80">unikający</text>
+        <text x="95" y="194">bezpieczny</text>
+        <text x="209" y="187">unikająco-</text>
+        <text x="209" y="201">lekceważący</text>
+      </g>
+      <g fill="var(--ink-3)" font-size="11" font-family="var(--sans)">
+        <text x="152" y="266" text-anchor="middle">unikanie bliskości →</text>
+        <text x="16" y="130" text-anchor="middle" transform="rotate(-90 16 130)">lęk przed odrzuceniem →</text>
+      </g>
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="12" fill="var(--calm)" opacity=".2"/>
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" fill="var(--calm)" stroke="var(--surface)" stroke-width="2.2"/>
+    </svg>
+  `;
+}
+
 function renderResult(result, answers, id, fromHistory){
   const date = fromHistory ? state.viewingFull.date : state.lastDate;
   app.innerHTML = `
-    <div class="top-nav">
-      <button id="toHome">← Strona główna</button>
-    </div>
-    ${(!fromHistory && state.lastSaveError) ? `<div class="error-banner">${state.lastSaveError}</div>` : ''}
+    <button class="backlink" id="toHome" style="border:0;background:none;padding:0;cursor:pointer;">Strona główna testu</button>
+    ${(!fromHistory && state.lastSaveError) ? `<div class="banner">${esc(state.lastSaveError)}</div>` : ''}
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
-        <span class="badge">${fromHistory ? 'Wynik z historii' : 'Nowy wynik'}</span>
-        <span class="result-id">${id}</span>
+      <div class="result-head">
+        <span class="tag">${fromHistory ? 'Wynik z historii' : 'Twój wynik'}</span>
+        <span class="result-id">${formatDate(date)}</span>
       </div>
-      <p class="style-name">${result.style}</p>
-      <p class="style-desc">${result.desc}</p>
-      <div style="margin-top:18px;">
+      <p class="style-name">${esc(result.style)}</p>
+      <p class="style-desc">${esc(result.desc)}</p>
+
+      ${quadrantMap(result.anxPct, result.avoPct)}
+      <p class="map-caption">Twoje miejsce na dwóch wymiarach przywiązania</p>
+
+      <hr class="divider">
+
+      <div class="metric">
         <div class="metric-label"><span>Lęk przed odrzuceniem</span><span>${result.anxPct}%</span></div>
-        <div class="metric-track"><div class="metric-fill" style="width:${result.anxPct}%;background:var(--warm);"></div></div>
-        <div class="metric-label"><span>Unikanie bliskości</span><span>${result.avoPct}%</span></div>
-        <div class="metric-track"><div class="metric-fill" style="width:${result.avoPct}%;background:var(--accent);"></div></div>
+        <div class="metric-track"><div class="metric-fill" style="width:${result.anxPct}%;background:var(--heather);"></div></div>
+        <p class="metric-note">Jak bardzo zajmuje Cię myśl o tym, że bliska osoba może odejść.</p>
       </div>
-      <p class="note">Wykonano: ${formatDate(date)}</p>
+      <div class="metric">
+        <div class="metric-label"><span>Unikanie bliskości</span><span>${result.avoPct}%</span></div>
+        <div class="metric-track"><div class="metric-fill" style="width:${result.avoPct}%;background:var(--sage);"></div></div>
+        <p class="metric-note">Jak bardzo wolisz trzymać uczucia dla siebie i polegać tylko na sobie.</p>
+      </div>
     </div>
-    <button class="link-btn" id="toggleAnswers" style="margin-bottom:10px;">Pokaż wszystkie odpowiedzi</button>
-    <div class="card" id="answersPanel" style="display:none;padding:6px 14px;"></div>
-    <button class="btn-primary btn-block" id="newTest" style="margin-top:16px;">Zrób nowy test</button>
+
+    <p class="note">Styl przywiązania nie jest diagnozą ani cechą na całe życie — zmienia się wraz z doświadczeniem i relacjami. Identyfikator tego wyniku: ${esc(id)}.</p>
+
+    <p style="margin:18px 0 10px;"><button class="link-btn" id="toggleAnswers">Pokaż wszystkie odpowiedzi</button></p>
+    <div class="card" id="answersPanel" style="display:none;padding:6px 20px;"></div>
+
+    <button class="btn-primary btn-block" id="newTest" style="margin-top:20px;">Zrób test ponownie</button>
   `;
   document.getElementById('toHome').addEventListener('click', ()=>{ state.view='home'; render(); });
   document.getElementById('newTest').addEventListener('click', ()=>{
@@ -521,8 +850,8 @@ function renderResult(result, answers, id, fromHistory){
     if(shown){
       panel.innerHTML = ITEMS.map((it,i)=>`
         <div class="answer-row">
-          <span class="answer-q">${i+1}. ${it.q}</span>
-          <span class="answer-v">${answers[i]}</span>
+          <span class="answer-q">${i+1}. ${esc(it.q)}</span>
+          <span class="answer-v" title="${esc(scaleLabel(answers[i]))}">${answers[i]}</span>
         </div>
       `).join('');
       panel.style.display='block';
