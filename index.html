@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psytesty</title>
+<style>
+  :root{--bg:#FAF8F4;--surface:#FFF;--text:#26241F;--muted:#6B6759;--border:#E3DFD2;--accent:#0F6E56;--radius:10px;}
+  @media (prefers-color-scheme: dark){:root{--bg:#1B1A17;--surface:#242320;--text:#EDEAE1;--muted:#B0AB9C;--border:#3A3833;--accent:#5DCAA5;}}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;}
+  main{max-width:640px;margin:0 auto;padding:32px 20px 60px;}
+  h1{font-size:22px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 24px;}
+  a.card{display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:12px;color:inherit;text-decoration:none;}
+  a.card:hover{border-color:var(--accent);}
+  .t{font-weight:600;font-size:16px;margin:0 0 2px;}
+  .d{color:var(--muted);font-size:14px;margin:0;}
+  .note{color:var(--muted);font-size:12px;margin-top:24px;}
+</style>
+</head>
+<body>
+<main>
+  <h1>Psytesty</h1>
+  <p class="sub">Kwestionariusze psychologiczne do samodzielnej refleksji</p>
+
+  <!-- Nowy test: skopiuj blok <a class="card"> i zmień link, tytuł oraz opis -->
+  <a class="card" href="testy/test-przywiazania.html">
+    <p class="t">Test stylu przywiązania</p>
+    <p class="d">36 stwierdzeń · lęk przed odrzuceniem i unikanie bliskości · ok. 7 min</p>
+  </a>
+
+  <p class="note">Odpowiedzi i wyniki nie są nigdzie wysyłane — zostają wyłącznie w Twojej przeglądarce.
+  Wyniki mają charakter orientacyjny i nie zastępują konsultacji ze specjalistą.</p>
+</main>
+</body>
+</html>

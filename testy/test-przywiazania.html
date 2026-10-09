@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test stylu przywiązania</title>
+<style>
+  :root{
+    --bg:#FAF8F4;
+    --surface:#FFFFFF;
+    --surface-2:#F1EEE6;
+    --text:#26241F;
+    --text-secondary:#6B6759;
+    --text-muted:#9A9585;
+    --border:#E3DFD2;
+    --accent:#0F6E56;
+    --accent-100:#E1F5EE;
+    --accent-800:#085041;
+    --warm:#B5511E;
+    --warm-100:#FAECE7;
+    --warm-800:#4A1B0C;
+    --radius:10px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1B1A17;
+      --surface:#242320;
+      --surface-2:#2D2B27;
+      --text:#EDEAE1;
+      --text-secondary:#B0AB9C;
+      --text-muted:#7C7869;
+      --border:#3A3833;
+      --accent:#5DCAA5;
+      --accent-100:#0F6E56;
+      --accent-800:#E1F5EE;
+      --warm:#F0997B;
+      --warm-100:#712B13;
+      --warm-800:#FAECE7;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.55;
+  }
+  #app{
+    max-width:640px;
+    margin:0 auto;
+    padding:28px 20px 60px;
+  }
+  h1{
+    font-size:20px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .subtitle{
+    color:var(--text-secondary);
+    font-size:14px;
+    margin:0 0 24px;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px 18px;
+    margin-bottom:14px;
+  }
+  button{
+    font-family:inherit;
+    font-size:14px;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    padding:10px 14px;
+    cursor:pointer;
+  }
+  button:hover{background:var(--surface-2);}
+  button:active{transform:scale(0.98);}
+  button:disabled{opacity:0.4;cursor:default;}
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+    border:1px solid var(--accent);
+    font-weight:600;
+  }
+  .btn-primary:hover{filter:brightness(1.05);}
+  .btn-block{width:100%;}
+  .progress-track{
+    height:5px;
+    background:var(--surface-2);
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:18px;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--accent);
+    border-radius:3px;
+    transition:width .2s ease;
+  }
+  .q-meta{
+    font-size:12px;
+    color:var(--text-muted);
+    margin:0 0 6px;
+  }
+  .q-text{
+    font-size:17px;
+    margin:0 0 18px;
+  }
+  .scale-row{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+    margin-bottom:6px;
+  }
+  .scale-btn{
+    padding:10px 0;
+    font-weight:600;
+    font-size:14px;
+    text-align:center;
+  }
+  .scale-btn.selected{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+  .scale-labels{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:var(--text-muted);
+    margin-bottom:20px;
+  }
+  .nav-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .badge{
+    display:inline-block;
+    font-size:12px;
+    font-weight:600;
+    padding:3px 10px;
+    border-radius:20px;
+    background:var(--accent-100);
+    color:var(--accent-800);
+  }
+  .result-id{
+    font-size:12px;
+    color:var(--text-muted);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  .metric-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    color:var(--text-secondary);
+    margin-bottom:4px;
+  }
+  .metric-track{
+    height:9px;
+    background:var(--surface-2);
+    border-radius:5px;
+    overflow:hidden;
+    margin-bottom:16px;
+  }
+  .metric-fill{
+    height:100%;
+    border-radius:5px;
+  }
+  .style-name{
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .style-desc{
+    font-size:15px;
+    color:var(--text-secondary);
+    margin:0 0 4px;
+  }
+  .hist-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 4px;
+    border-bottom:1px solid var(--border);
+    cursor:pointer;
+  }
+  .hist-item:last-child{border-bottom:none;}
+  .hist-date{
+    font-size:13px;
+    color:var(--text-secondary);
+  }
+  .hist-style{
+    font-size:14px;
+    font-weight:600;
+  }
+  .empty{
+    color:var(--text-muted);
+    font-size:14px;
+    text-align:center;
+    padding:20px 0;
+  }
+  .answer-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:8px 0;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+  }
+  .answer-row:last-child{border-bottom:none;}
+  .answer-q{color:var(--text-secondary);}
+  .answer-v{font-weight:600;white-space:nowrap;}
+  .link-btn{
+    background:none;
+    border:none;
+    color:var(--accent);
+    padding:0;
+    font-weight:600;
+  }
+  .top-nav{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .note{
+    font-size:12px;
+    color:var(--text-muted);
+    margin-top:18px;
+  }
+  .error-banner{
+    background:var(--warm-100);
+    color:var(--warm-800);
+    border:1px solid var(--warm);
+    border-radius:var(--radius);
+    padding:12px 14px;
+    font-size:13px;
+    margin-bottom:14px;
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// 36-pozycyjny kwestionariusz stylu przywiązania (wersja autorska,
+// inspirowana dwuwymiarowym modelem lęku i unikania stosowanym m.in. w ECR-R)
+const ITEMS = [
+  {t:'anx', r:false, q:'Martwię się, że partner nie kocha mnie tak bardzo, jak ja jego/ją.'},
+  {t:'avo', r:false, q:'Wolę nie dzielić się głębszymi uczuciami z partnerem.'},
+  {t:'anx', r:false, q:'Często zastanawiam się, czy partner naprawdę chce ze mną być.'},
+  {t:'avo', r:false, q:'Czuję się nieswojo, gdy partner chce być bardzo blisko mnie emocjonalnie.'},
+  {t:'anx', r:false, q:'Boję się, że zostanę odrzucony/a lub porzucony/a przez bliską osobę.'},
+  {t:'avo', r:false, q:'Trudno mi pozwolić sobie na zależność od bliskiej osoby.'},
+  {t:'anx', r:false, q:'Potrzebuję częstych zapewnień, że jestem kochany/a.'},
+  {t:'avo', r:false, q:'Wolę radzić sobie z problemami sam/sama niż szukać wsparcia u partnera.'},
+  {t:'anx', r:false, q:'Czuję niepokój, gdy partner spędza czas z dala ode mnie.'},
+  {t:'avo', r:false, q:'Zachowuję dystans, gdy związek staje się zbyt intymny.'},
+  {t:'anx', r:false, q:'Łatwo wpadam w niepokój, gdy myślę, że nasz związek może się skończyć.'},
+  {t:'avo', r:false, q:'Rzadko otwieram się przed partnerem na temat swoich obaw.'},
+  {t:'anx', r:false, q:'Zbytnio przejmuję się tym, co partner o mnie myśli.'},
+  {t:'avo', r:false, q:'Czuję się skrępowany/a, gdy partner okazuje mi zbyt dużo czułości.'},
+  {t:'anx', r:false, q:'Czuję się niespokojny/a, gdy nie mam kontaktu z partnerem przez dłuższy czas.'},
+  {t:'avo', r:false, q:'Wolę, żeby związek nie wymagał zbyt dużej bliskości emocjonalnej.'},
+  {t:'anx', r:false, q:'Boję się, że partner straci zainteresowanie mną.'},
+  {t:'avo', r:false, q:'Trudno mi mówić partnerowi o swoich prawdziwych uczuciach.'},
+  {t:'anx', r:false, q:'Często potrzebuję potwierdzenia, że nasz związek ma się dobrze.'},
+  {t:'avo', r:false, q:'Unikam rozmów o przyszłości związku.'},
+  {t:'anx', r:false, q:'Martwię się, że nie jestem wystarczająco dobry/a dla partnera.'},
+  {t:'avo', r:false, q:'Czuję ulgę, gdy mam czas z dala od partnera.'},
+  {t:'anx', r:false, q:'Kiedy partner jest w złym humorze, zastanawiam się, czy to przeze mnie.'},
+  {t:'avo', r:false, q:'Wolę zachować część swojego życia tylko dla siebie, nawet przed partnerem.'},
+  {t:'anx', r:true,  q:'Czuję się bezpiecznie w związku i rzadko się o niego martwię.'},
+  {t:'avo', r:true,  q:'Czuję się swobodnie, dzieląc się z partnerem swoimi myślami i uczuciami.'},
+  {t:'anx', r:true,  q:'Rzadko obawiam się, że partner mnie zostawi.'},
+  {t:'avo', r:true,  q:'Łatwo mi prosić partnera o wsparcie, gdy tego potrzebuję.'},
+  {t:'anx', r:true,  q:'Łatwo mi zaufać, że partner mnie kocha.'},
+  {t:'avo', r:true,  q:'Cieszy mnie bliskość emocjonalna z partnerem.'},
+  {t:'anx', r:true,  q:'Kiedy nie mogę skontaktować się z partnerem, zakładam po prostu, że ma zajęty dzień.'},
+  {t:'avo', r:true,  q:'Bez trudu pozwalam sobie na zależność od bliskiej osoby.'},
+  {t:'anx', r:true,  q:'Nie potrzebuję ciągłych zapewnień, by czuć się pewnie w związku.'},
+  {t:'avo', r:true,  q:'Rozmowa o uczuciach z partnerem przychodzi mi naturalnie.'},
+  {t:'anx', r:true,  q:'Zwykle nie martwię się tym, co partner o mnie myśli.'},
+  {t:'avo', r:true,  q:'Czuję się komfortowo, gdy partner jest bardzo blisko mnie emocjonalnie.'}
+];
+const SCALE_MIN_LABEL = 'zdecydowanie się nie zgadzam';
+const SCALE_MAX_LABEL = 'zdecydowanie się zgadzam';
+
+let state = { view:'home', qIdx:0, answers:new Array(ITEMS.length).fill(null), history:[], viewingId:null, viewingFull:null };
+
+const app = document.getElementById('app');
+
+function genId(){
+  const d = new Date();
+  const stamp = d.getFullYear().toString()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0')+String(d.getSeconds()).padStart(2,'0');
+  const rand = Math.random().toString(36).slice(2,6).toUpperCase();
+  return 'T-'+stamp+'-'+rand;
+}
+
+function computeResult(answers){
+  const anxVals = [], avoVals = [];
+  ITEMS.forEach((it,i)=>{
+    let v = answers[i];
+    if(v===null) return;
+    if(it.r) v = 8 - v;
+    if(it.t==='anx') anxVals.push(v); else avoVals.push(v);
+  });
+  const anxAvg = anxVals.reduce((a,b)=>a+b,0)/anxVals.length;
+  const avoAvg = avoVals.reduce((a,b)=>a+b,0)/avoVals.length;
+  const anxPct = Math.round(((anxAvg-1)/6)*100);
+  const avoPct = Math.round(((avoAvg-1)/6)*100);
+  const highAnx = anxAvg > 4;
+  const highAvo = avoAvg > 4;
+  let style, desc;
+  if(!highAnx && !highAvo){
+    style='Bezpieczny';
+    desc='Czujesz się względnie swobodnie zarówno z bliskością, jak i z niezależnością. Ufasz partnerowi i nie masz silnej obawy przed odrzuceniem ani potrzeby trzymania dystansu.';
+  } else if(highAnx && !highAvo){
+    style='Lękowo-ambiwalentny';
+    desc='Zależy Ci na bliskości i często potrzebujesz zapewnień o uczuciach partnera. Możesz odczuwać niepokój związany z obawą przed odrzuceniem lub utratą związku.';
+  } else if(!highAnx && highAvo){
+    style='Unikająco-lekceważący';
+    desc='Cenisz niezależność i możesz czuć dyskomfort przy dużej bliskości emocjonalnej. Wolisz polegać na sobie niż szukać wsparcia u innych.';
+  } else {
+    style='Lękowo-unikający';
+    desc='Z jednej strony pragniesz bliskości, z drugiej obawiasz się jej i trzymasz dystans. To połączenie niepokoju o relację i trudności z otwarciem się na partnera.';
+  }
+  return {anxPct, avoPct, style, desc};
+}
+
+// --- Warstwa zapisu -------------------------------------------------------
+// Działa w dwóch środowiskach:
+//  1) artefakt Claude (window.storage) - gdy plik otwarty na claude.ai,
+//  2) zwykła strona WWW, np. GitHub Pages (localStorage przeglądarki).
+// W obu przypadkach dane zostają WYŁĄCZNIE na urządzeniu użytkownika.
+const store = (function(){
+  const hasClaude = !!(window.storage && typeof window.storage.get === 'function' && typeof window.storage.set === 'function');
+  let hasLocal = false;
+  try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); hasLocal = true; }catch(e){}
+  return {
+    available: hasClaude || hasLocal,
+    async get(key){
+      if(hasClaude){ const r = await window.storage.get(key, false); return r && r.value ? r.value : null; }
+      if(hasLocal){ return localStorage.getItem(key); }
+      return null;
+    },
+    async set(key, value){
+      if(hasClaude){ await window.storage.set(key, value, false); return; }
+      if(hasLocal){ localStorage.setItem(key, value); return; }
+      throw new Error('brak dostępnego magazynu danych');
+    }
+  };
+})();
+
+function storageAvailable(){ return store.available; }
+
+async function loadIndex(){
+  if(!storageAvailable()) return [];
+  try{
+    const v = await store.get('ecrr_index');
+    return v ? JSON.parse(v) : [];
+  }catch(e){ return []; }
+}
+
+async function saveTest(answers, result){
+  const id = genId();
+  const date = new Date().toISOString();
+  const full = Object.assign({ id: id, date: date, answers: answers }, result);
+  let saveError = null;
+  if(!storageAvailable()){
+    saveError = 'Zapis niedostępny: przeglądarka blokuje pamięć lokalną (np. tryb prywatny). Wynik jest widoczny poniżej, ale nie trafi do historii.';
+  } else {
+    try{
+      await store.set('ecrr_full_'+id, JSON.stringify(full));
+      const idx = await loadIndex();
+      idx.unshift({ id: id, date: date, anxPct: result.anxPct, avoPct: result.avoPct, style: result.style });
+      await store.set('ecrr_index', JSON.stringify(idx));
+    }catch(e){
+      saveError = 'Zapis nie powiódł się (' + (e && e.message ? e.message : 'nieznany błąd') + '). Wynik jest widoczny poniżej, ale nie trafi do historii.';
+    }
+  }
+  return { full: full, saveError: saveError };
+}
+
+async function loadFull(id){
+  try{
+    const v = await store.get('ecrr_full_'+id);
+    return v ? JSON.parse(v) : null;
+  }catch(e){ return null; }
+}
+
+function formatDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('pl-PL', {day:'2-digit', month:'2-digit', year:'numeric'}) + ' ' + d.toLocaleTimeString('pl-PL', {hour:'2-digit', minute:'2-digit'});
+}
+
+function render(){
+  if(state.view==='home') renderHome();
+  else if(state.view==='quiz') renderQuiz();
+  else if(state.view==='result') renderResult(state.lastResult, state.lastAnswers, state.lastId, false);
+  else if(state.view==='detail') renderResult(state.viewingFull, state.viewingFull.answers, state.viewingFull.id, true);
+}
+
+async function renderHome(){
+  const idx = await loadIndex();
+  state.history = idx;
+  app.innerHTML = `
+    <p style="margin:0 0 14px;"><a href="../index.html" style="color:var(--accent);font-size:13px;text-decoration:none;">← Wszystkie testy</a></p>
+    <h1>Test stylu przywiązania</h1>
+    <p class="subtitle">36 stwierdzeń · dwa wymiary: lęk przed odrzuceniem i unikanie bliskości</p>
+    <button class="btn-primary btn-block" id="start">Zacznij nowy test</button>
+    <h2 style="font-size:15px;font-weight:600;margin:28px 0 10px;">Historia testów</h2>
+    ${!storageAvailable() ? '<div class="error-banner">Zapis historii jest niedostępny w tej przeglądarce (np. tryb prywatny lub zablokowana pamięć lokalna). Test działa, ale wyniki nie będą zapamiętane.</div>' : ''}
+    <div class="card" style="padding:4px 14px;">
+      ${idx.length===0 ? '<div class="empty">Nie masz jeszcze zapisanych wyników.</div>' :
+        idx.map(t=>`
+          <div class="hist-item" data-id="${t.id}">
+            <div>
+              <div class="hist-style">${t.style}</div>
+              <div class="hist-date">${formatDate(t.date)} · <span class="result-id">${t.id}</span></div>
+            </div>
+            <span style="color:var(--text-muted);font-size:18px;">›</span>
+          </div>
+        `).join('')}
+    </div>
+    <p class="note">Wyniki zapisywane są tylko na tym urządzeniu / w tej przeglądarce.</p>
+  `;
+  document.getElementById('start').addEventListener('click', ()=>{
+    state.view='quiz'; state.qIdx=0; state.answers=new Array(ITEMS.length).fill(null);
+    render();
+  });
+  app.querySelectorAll('.hist-item').forEach(el=>{
+    el.addEventListener('click', async ()=>{
+      const full = await loadFull(el.getAttribute('data-id'));
+      if(full){ state.viewingFull = full; state.view='detail'; render(); }
+    });
+  });
+}
+
+function renderQuiz(){
+  const i = state.qIdx;
+  const it = ITEMS[i];
+  const pct = Math.round((i/ITEMS.length)*100);
+  const current = state.answers[i];
+  app.innerHTML = `
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <p class="q-meta">Pytanie ${i+1} z ${ITEMS.length}</p>
+    <p class="q-text">${it.q}</p>
+    <div class="scale-row">
+      ${[1,2,3,4,5,6,7].map(v=>`<button class="scale-btn ${current===v?'selected':''}" data-v="${v}">${v}</button>`).join('')}
+    </div>
+    <div class="scale-labels"><span>${SCALE_MIN_LABEL}</span><span>${SCALE_MAX_LABEL}</span></div>
+    <div class="nav-row">
+      <button id="back" ${i===0?'disabled':''}>← Wstecz</button>
+      <button id="home2" style="border:none;background:none;color:var(--text-muted);">Przerwij</button>
+    </div>
+  `;
+  app.querySelectorAll('.scale-btn').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      state.answers[i] = parseInt(btn.getAttribute('data-v'));
+      if(i+1 < ITEMS.length){
+        state.qIdx++;
+        render();
+      } else {
+        const result = computeResult(state.answers);
+        const { full, saveError } = await saveTest(state.answers.slice(), result);
+        state.lastResult = result;
+        state.lastAnswers = state.answers.slice();
+        state.lastId = full.id;
+        state.lastDate = full.date;
+        state.lastSaveError = saveError;
+        state.view='result';
+        render();
+      }
+    });
+  });
+  document.getElementById('back').addEventListener('click', ()=>{ if(i>0){ state.qIdx--; render(); } });
+  document.getElementById('home2').addEventListener('click', ()=>{ state.view='home'; render(); });
+}
+
+function renderResult(result, answers, id, fromHistory){
+  const date = fromHistory ? state.viewingFull.date : state.lastDate;
+  app.innerHTML = `
+    <div class="top-nav">
+      <button id="toHome">← Strona główna</button>
+    </div>
+    ${(!fromHistory && state.lastSaveError) ? `<div class="error-banner">${state.lastSaveError}</div>` : ''}
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <span class="badge">${fromHistory ? 'Wynik z historii' : 'Nowy wynik'}</span>
+        <span class="result-id">${id}</span>
+      </div>
+      <p class="style-name">${result.style}</p>
+      <p class="style-desc">${result.desc}</p>
+      <div style="margin-top:18px;">
+        <div class="metric-label"><span>Lęk przed odrzuceniem</span><span>${result.anxPct}%</span></div>
+        <div class="metric-track"><div class="metric-fill" style="width:${result.anxPct}%;background:var(--warm);"></div></div>
+        <div class="metric-label"><span>Unikanie bliskości</span><span>${result.avoPct}%</span></div>
+        <div class="metric-track"><div class="metric-fill" style="width:${result.avoPct}%;background:var(--accent);"></div></div>
+      </div>
+      <p class="note">Wykonano: ${formatDate(date)}</p>
+    </div>
+    <button class="link-btn" id="toggleAnswers" style="margin-bottom:10px;">Pokaż wszystkie odpowiedzi</button>
+    <div class="card" id="answersPanel" style="display:none;padding:6px 14px;"></div>
+    <button class="btn-primary btn-block" id="newTest" style="margin-top:16px;">Zrób nowy test</button>
+  `;
+  document.getElementById('toHome').addEventListener('click', ()=>{ state.view='home'; render(); });
+  document.getElementById('newTest').addEventListener('click', ()=>{
+    state.view='quiz'; state.qIdx=0; state.answers=new Array(ITEMS.length).fill(null);
+    render();
+  });
+  const toggle = document.getElementById('toggleAnswers');
+  const panel = document.getElementById('answersPanel');
+  let shown = false;
+  toggle.addEventListener('click', ()=>{
+    shown = !shown;
+    if(shown){
+      panel.innerHTML = ITEMS.map((it,i)=>`
+        <div class="answer-row">
+          <span class="answer-q">${i+1}. ${it.q}</span>
+          <span class="answer-v">${answers[i]}</span>
+        </div>
+      `).join('');
+      panel.style.display='block';
+      toggle.textContent='Ukryj odpowiedzi';
+    } else {
+      panel.style.display='none';
+      toggle.textContent='Pokaż wszystkie odpowiedzi';
+    }
+  });
+}
+
+render();
+</script>
+</body>
+</html>
